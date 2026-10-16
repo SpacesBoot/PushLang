@@ -1,0 +1,4 @@
+io->print( hello world io->endl )
+io->print( este es un ejemplo )
+
+/* este es ejemplo de comentario */

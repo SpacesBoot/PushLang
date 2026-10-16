@@ -1,0 +1,4 @@
+mainfile: src/main.psh
+sourcedir: src
+author: spacesxd
+version: 5
