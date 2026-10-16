@@ -1,0 +1,1 @@
+lg hello lg world endl lg ) lg este lg es lg un lg ejemplo lg ) lg /* lg este lg es lg ejemplo lg de lg comentario lg */ 
