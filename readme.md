@@ -9,5 +9,5 @@ La idea esque cuando tu ejecutes tu codigo el administrador de paquetes interpre
 # Lista de logros:
 
 * Interprete ✅
-* Maquina Virtual 🟡
-* Compilador 🔴
+* Maquina Virtual ✅
+* Compilador ✅
