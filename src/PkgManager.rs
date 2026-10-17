@@ -48,6 +48,22 @@ pub mod PkgManager {
         String::new()
     }
     
+    pub fn nmainfile() -> String {
+        let input = std::fs::read_to_string("src/pkgmanager.txt").expect("xd");
+        let mut mf = false;
+        
+        for token in input.split_whitespace() {
+            if token == "mainfile:" {
+                mf = true;
+            } else if mf {
+                mf = false;
+                return token.to_string();
+            }
+        }
+        
+        String::new()
+    }
+
     //devuelve el nombre del autor del codigo
     pub fn author() -> String {
         let input = std::fs::read_to_string("src/pkgmanager.txt").expect("xd");

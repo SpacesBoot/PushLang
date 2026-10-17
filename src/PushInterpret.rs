@@ -37,16 +37,69 @@ pub mod PushInterpret {
             } else {
                 if cmdt == "print" {
                     if !cmdf {
-                      blog.push_str(&("lg ".to_owned() + &token.to_owned() + " "));
+                        if token == ")" || token == "/*" || token == "*/" {
+                            continue;
+                        } else {
+                            blog.push_str(&(" lg ".to_owned() + &token.to_owned()));
+                        }  
                     }
                 }
             }
         }
 
-        std::fs::write("main.pb", blog).expect("Unable to write file");
+        let namefile: String = crate::PkgManager::PkgManager::nmainfile() + ".pb";
+        std::fs::write(&namefile, blog).expect("Unable to write file");
+    }
+
+    pub fn ConvertToC(code: &str) {
+        let mut blog: String = String::from("");
+        
+        let mut cmdt: String = String::from("");
+        let mut cmdf: bool = false;
+        
+        blog.push_str("#include <stdio.h>\n// Template made by SpacesXD \n\nint main(void) {\n");
+        
+        for token in code.split_whitespace() {
+            if token == "lg" {
+                cmdf = false;
+                cmdt = String::from("print");
+            } else if token == "endl" {
+                blog.push_str("\n");
+            } else if token == "col" {
+                cmdf = false;
+                cmdt = String::from("color");
+            } else {
+                if cmdt == "print" {
+                    if !cmdf {
+                        blog.push_str(&("    printf(\"".to_owned() + &token.to_owned() + "\");\n"));
+                    }
+                } else if cmdt == "color" {
+                    if !cmdf {
+                        if token == "white" {
+                            blog.push_str("\033[00m");
+                        } else if token == "black" {
+                            blog.push_str("\033[30m");
+                        } else if token == "red" {
+                            blog.push_str("\033[31m");
+                        } else if token == "green" {
+                            blog.push_str("\033[32m");
+                        } else if token == "blue" {
+                            blog.push_str("\033[34m");
+                        } else if token == "yellow" {
+                            blog.push_str("\033[33m");
+                        }
+                    }
+                }
+            }
+        }
+
+        blog.push_str("\n   return 0;\n}");
+        let namefile: String = crate::PkgManager::PkgManager::nmainfile() + ".c";
+        std::fs::write(&namefile, blog).expect("Unable to write file");
     }
     
-    pub fn InterpretBytecode(code: &str) -> String {
+    pub fn InterpretBytecode() -> String {
+        let code: String = std::fs::read_to_string("main.pb").expect("Unable to read file");
         let mut log: String = String::from("");
         
         let mut cmdt: String = String::from("");
@@ -91,7 +144,7 @@ pub mod PushInterpret {
         return log
     }
 
-    // funcion principal para inteepretar el codigo
+    // funcion principal para interpretar el codigo
     pub fn interpret(code: &str) -> String {
         // el registro de outputs
         let mut log: String = String::from("");
@@ -172,7 +225,8 @@ pub mod PushInterpret {
         }
 
         if err < 1 {
-             ConvertToBytecode(code);
+             let cc = std::fs::read_to_string(crate::PkgManager::PkgManager::nmainfile() + ".pb").expect("Unable to read file");
+             ConvertToC(&cc);
         } else { 
             log.push_str("[CODE ERROR] Due to code errors, it won't be interpretable :("); 
         }
