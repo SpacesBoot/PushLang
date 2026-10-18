@@ -1,4 +1,4 @@
 io->print( hello world io->endl )
 io->print( este es un ejemplo )
-
+int x = 5
 /* este es ejemplo de comentario */

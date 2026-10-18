@@ -2,17 +2,19 @@
 // Template made by SpacesXD 
 
 int main(void) {
-    printf("hellolg");
-    printf("worldendl");
-    printf("estelg");
-    printf("eslg");
-    printf("unlg");
-    printf("ejemplolg");
-    printf("estelg");
-    printf("eslg");
-    printf("ejemplolg");
-    printf("delg");
-    printf("comentario");
+    printf("hello ");
+    printf("world ");
+    printf("\n");
+    printf("este ");
+    printf("es ");
+    printf("un ");
+    printf("ejemplo ");
+    int x = 5;
+    printf("este ");
+    printf("es ");
+    printf("ejemplo ");
+    printf("de ");
+    printf("comentario ");
 
-   return 0;
+    return 0;
 }

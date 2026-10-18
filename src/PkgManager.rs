@@ -9,7 +9,7 @@ pub mod PkgManager {
     // Funcion para comprobar que el administrador de paquetes este bien
     pub fn check_pkgmanager() {
         //variables para leer el archico de pkgmanager
-        let input = std::fs::read_to_string("src/pkgmanager.txt").expect("xd");
+        let input = std::fs::read_to_string("pkgmanager.txt").expect("xd");
         let mut vf = false;
         
         //log de test
@@ -33,7 +33,7 @@ pub mod PkgManager {
     
     //devuelve el codigo del archivo principal
     pub fn mainfile() -> String {
-        let input = std::fs::read_to_string("src/pkgmanager.txt").expect("xd");
+        let input = std::fs::read_to_string("pkgmanager.txt").expect("xd");
         let mut mf = false;
         
         for token in input.split_whitespace() {
@@ -49,7 +49,7 @@ pub mod PkgManager {
     }
     
     pub fn nmainfile() -> String {
-        let input = std::fs::read_to_string("src/pkgmanager.txt").expect("xd");
+        let input = std::fs::read_to_string("pkgmanager.txt").expect("xd");
         let mut mf = false;
         
         for token in input.split_whitespace() {
@@ -66,7 +66,7 @@ pub mod PkgManager {
 
     //devuelve el nombre del autor del codigo
     pub fn author() -> String {
-        let input = std::fs::read_to_string("src/pkgmanager.txt").expect("xd");
+        let input = std::fs::read_to_string("pkgmanager.txt").expect("xd");
         let mut at = false;
         
         for token in input.split_whitespace() {

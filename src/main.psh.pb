@@ -1,1 +1,13 @@
-lg hellolg worldendl lg estelg eslg unlg ejemplolg estelg eslg ejemplolg delg comentario
+lg hello 
+lg world 
+endl 
+lg este 
+lg es 
+lg un 
+lg ejemplo 
+int x 5 
+lg este 
+lg es 
+lg ejemplo 
+lg de 
+lg comentario 
