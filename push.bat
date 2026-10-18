@@ -3,7 +3,7 @@
 "C:\push\pushc.exe"
 
 if exist temp.c (
-    "C:\push\winlibs\mingw32\bin\gcc.exe" temp.c -o temp.exe >nul 2>nul
+    "C:\push\tcc\tcc.exe" temp.c -o temp.exe >nul 2>nul
 )
 
 if exist temp.exe (
