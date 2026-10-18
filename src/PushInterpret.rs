@@ -127,94 +127,14 @@ pub mod PushInterpret {
             }
         }
 
+        println!("\x1b[00mBuilding...");
         blog.push_str("\n    return 0;\n}");
-        let namefile: String = crate::PkgManager::PkgManager::nmainfile() + ".c";
-        std::fs::write(&namefile, blog).expect("Unable to write file");
-    }
-    
-    pub fn InterpretBytecode() -> String {
-        let namefile_pb = crate::PkgManager::PkgManager::nmainfile() + ".pb";
-        let code: String = std::fs::read_to_string(&namefile_pb).unwrap_or_default();
-        let mut log: String = String::from("");
-        
-        let mut vars_name: Vec<String> = Vec::new();
-        let mut vars_value_int: Vec<i32> = Vec::new();
-
-        let mut cmdt: String = String::from("");
-        let mut vrbt: String = String::from("");
-        let mut wv: bool = false;
-        let mut cmdf: bool = false;
-        
-        println!("\x1b[00mInterpreting PushBytecode...");
-        
-        for token in code.split_whitespace() {
-            if token == "lg" {
-                cmdf = false;
-                cmdt = String::from("print");
-            } else if token == "endl" {
-                log.push_str("\n");
-            } else if token == "col" {
-                cmdf = false;
-                cmdt = String::from("color");
-            } else if token == "int" {
-                cmdf = false;
-                cmdt = String::from("variable");
-                vrbt = String::from("int");
-            } else {
-                if cmdt == "print" {
-                    if !cmdf {
-                        let mut found = false;
-                        for i in 0..vars_name.len() {
-                            if vars_name[i] == token {
-                                log.push_str(&(vars_value_int[i].to_string() + " "));
-                                found = true;
-                                break;
-                            }
-                        }
-                        if !found {
-                            log.push_str(&(token.to_owned() + " "));
-                        }
-                    }
-                } else if cmdt == "color" {
-                    if !cmdf {
-                        if token == "white" {
-                            log.push_str("\x1b[00m");
-                        } else if token == "black" {
-                            log.push_str("\x1b[30m");
-                        } else if token == "red" {
-                            log.push_str("\x1b[31m");
-                        } else if token == "green" {
-                            log.push_str("\x1b[32m");
-                        } else if token == "blue" {
-                            log.push_str("\x1b[34m");
-                        } else if token == "yellow" {
-                            log.push_str("\x1b[33m");
-                        }
-                        cmdf = true;
-                    }
-                } else if cmdt == "variable" {
-                    if !cmdf {
-                        if vrbt == "int" && !wv {
-                            vars_name.push(token.to_owned());
-                            wv = true;
-                        } else if wv {
-                            if let Ok(val) = token.parse::<i32>() {
-                                vars_value_int.push(val);
-                            } else {
-                                vars_value_int.push(0);
-                            }
-                            wv = false;
-                            cmdf = true;
-                        }
-                    }
-                }
-            }
-        }
-        return log;
+        std::fs::write("temp.c", blog).expect("Unable to write file");
+        println!("\x1b[00mBuild Successfully!...");
     }
 
     // funcion principal para interpretar el codigo
-    pub fn interpret(code: &str) -> String {
+    pub fn interpret(code: &str) {
         let mut log: String = String::from("");
         
         let mut vars_name: Vec<String> = Vec::new();
@@ -315,7 +235,5 @@ pub mod PushInterpret {
         } else { 
             log.push_str("[CODE ERROR] Due to code errors, it won't be interpretable :("); 
         }
-
-        return log;
     }
 }
